@@ -1,0 +1,52 @@
+from .base import BaseRepository
+from models.Auth_Entities import (
+    UserInDB,
+    User,
+    UserInLogin
+)
+from models.models import Users
+
+class UserRepository(BaseRepository):
+    def create_user(self, user_data : UserInDB):
+        newUser = Users(
+            id=user_data.id,
+            username=user_data.username,
+            password=user_data.hashed_password,  # map here
+            role=user_data.role,
+            created_at=user_data.created_at,
+            disabled=user_data.disabled,
+        )
+
+        self.session.add(instance = newUser)
+        self.session.commit()
+        self.session.refresh(instance = newUser)
+
+        return newUser
+    
+    def user_exist_by_username(self , username : str):
+        user = self.session.query(Users).filter(Users.username == username).first()
+        if user is None : 
+            return False
+        return True
+    
+    def get_user_by_username(self , username : str):
+        user = self.session.query(Users).filter(Users.username == username).first()
+        if user: 
+            return UserInDB(
+                id=user.id,
+                username=user.username,
+                role=user.role,
+                created_at=user.created_at,
+                disabled=user.disabled,
+                hashed_password=user.password,
+            )
+        else :
+            return None
+
+    def get_user_by_id (self , id : str) : 
+        user = self.session.query(Users).filter(Users.id == id).first()
+        if user : 
+            return user
+        else : return None
+            
+    
