@@ -1,20 +1,19 @@
-
 # Project PRD
 
 ## Internal AI Ticket & Workflow Platform
 
 A backend-heavy system that teaches:
 
-* APIs
-* auth
-* DBs
-* async
-* queues
-* caching
-* debugging
-* system flow
-* AI integration
-* deployment
+- APIs
+- auth
+- DBs
+- async
+- queues
+- caching
+- debugging
+- system flow
+- AI integration
+- deployment
 
 without unnecessary complexity.
 
@@ -24,11 +23,11 @@ without unnecessary complexity.
 
 A company has:
 
-* support tickets,
-* AI processing jobs,
-* logs,
-* users,
-* background tasks.
+- support tickets,
+- AI processing jobs,
+- logs,
+- users,
+- background tasks.
 
 Your system manages everything.
 
@@ -38,24 +37,24 @@ Your system manages everything.
 
 ## Backend
 
-* Python
-* FastAPI
+- Python
+- FastAPI
 
 ## Database
 
-* PostgreSQL
+- PostgreSQL
 
 ## Cache / Queue
 
-* Redis
+- Redis
 
 ## Async Workers
 
-* Celery / RQ / Dramatiq
+- Celery / RQ / Dramatiq
 
 ## Deployment
 
-* Docker
+- Docker
 
 No frontend initially.
 
@@ -73,16 +72,16 @@ Postman/swagger only.
 
 Users can:
 
-* signup
-* login
-* refresh token
-* logout
+- signup
+- login
+- refresh token
+- logout
 
 Roles:
 
-* admin
-* engineer
-* customer
+- admin
+- engineer
+- customer
 
 ---
 
@@ -90,20 +89,20 @@ Roles:
 
 Tickets have:
 
-* title
-* description
-* status
-* priority
-* assigned user
-* timestamps
+- title
+- description
+- status
+- priority
+- assigned user
+- timestamps
 
 Operations:
 
-* create
-* update
-* assign
-* close
-* list/filter
+- create
+- update
+- assign
+- close
+- list/filter
 
 ---
 
@@ -111,9 +110,9 @@ Operations:
 
 Users can:
 
-* add comments
-* edit comments
-* fetch comments
+- add comments
+- edit comments
+- fetch comments
 
 ---
 
@@ -123,13 +122,12 @@ Users can:
 
 When ticket is created:
 
-* background job starts
-* simulated AI analysis runs
-* generates:
-
-  * severity
-  * suggested fix
-  * tags
+- background job starts
+- simulated AI analysis runs
+- generates:
+  - severity
+  - suggested fix
+  - tags
 
 This MUST happen asynchronously.
 
@@ -139,10 +137,10 @@ This MUST happen asynchronously.
 
 Implement:
 
-* pending
-* processing
-* failed
-* retry
+- pending
+- processing
+- failed
+- retry
 
 ---
 
@@ -152,13 +150,13 @@ Implement:
 
 Cache:
 
-* ticket list
-* user session
-* analytics endpoint
+- ticket list
+- user session
+- analytics endpoint
 
 Implement:
 
-* cache invalidation
+- cache invalidation
 
 ---
 
@@ -168,9 +166,9 @@ Implement:
 
 Store:
 
-* API errors
-* failed jobs
-* retry logs
+- API errors
+- failed jobs
+- retry logs
 
 ---
 
@@ -178,9 +176,9 @@ Store:
 
 Return:
 
-* open tickets
-* failed jobs
-* avg processing time
+- open tickets
+- failed jobs
+- avg processing time
 
 ---
 
@@ -188,10 +186,10 @@ Return:
 
 Dockerize:
 
-* API
-* DB
-* Redis
-* worker
+- API
+- DB
+- Redis
+- worker
 
 Use docker-compose.
 
@@ -201,12 +199,12 @@ Use docker-compose.
 
 You MUST:
 
-* structure code cleanly
-* separate layers
-* handle errors properly
-* validate requests
-* use environment variables
-* write modular code
+- structure code cleanly
+- separate layers
+- handle errors properly
+- validate requests
+- use environment variables
+- write modular code
 
 ---
 
@@ -214,12 +212,13 @@ You MUST:
 
 DO NOT optimize for:
 
-* fancy architecture
-* perfect design
-* resume value
+- fancy architecture
+- perfect design
+- resume value
 
 Optimize for:
 
 # understanding.
 
 ---
+

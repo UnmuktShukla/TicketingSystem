@@ -1,3 +1,9 @@
 fastapi
 PyJWT
 pwdlib
+psycopg2-binary
+uvicorn
+sqlalchemy 
+"python-jose[cryptography]" 
+"passlib[bcrypt]" 
+python-multipart
