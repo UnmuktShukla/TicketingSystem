@@ -13,7 +13,7 @@ from typing import Annotated
 
 authRouter = APIRouter()
 
-@authRouter.post("/login" , status_code=200 , response_model=Token)
+@authRouter.post("/login" , status_code=200 , response_model=TokenData)
 def login(loginDetails : UserInLogin , session : Session = Depends(get_db)):
     try:
         return UserService(session=session).login(login_details= loginDetails)
