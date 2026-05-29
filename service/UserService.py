@@ -33,14 +33,8 @@ class UserService:
         if HashHelper.verify_password(plain_pw=login_details.password , hashed_pw=user.hashed_password):
             token = AuthHandler.sign_jwt(username=user.username)
             if token : 
-                return Token(
-                    id = user.id,
-                    username= user.username,
-                    role = user.role ,
-                    created_at= user.created_at,
-                    disabled = user.disabled,
+                return TokenData(
                     access_token= token,
-                    token_type="bearer",
                 )
             raise HTTPException(status_code=500 , detail="Unable to process request")
         raise HTTPException(status_code=400 , detail="Please check your credentials")

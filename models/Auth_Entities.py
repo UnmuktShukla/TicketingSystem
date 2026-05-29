@@ -14,7 +14,7 @@ class Token(User):
     token_type : str
 
 class TokenData(BaseModel):
-    id : str 
+    access_token : str 
 
 class UserInDB(User):
     hashed_password : str
