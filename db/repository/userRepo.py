@@ -41,12 +41,5 @@ class UserRepository(BaseRepository):
                 hashed_password=user.password,
             )
         else :
-            return None
-
-    def get_user_by_id (self , id : str) : 
-        user = self.session.query(Users).filter(Users.id == id).first()
-        if user : 
-            return user
-        else : return None
-            
+            return None       
     

@@ -38,3 +38,9 @@ class UserService:
                 )
             raise HTTPException(status_code=500 , detail="Unable to process request")
         raise HTTPException(status_code=400 , detail="Please check your credentials")
+
+    def get_user_by_username(self , username : str):
+        user = self.__userRepository.get_user_by_username(username=username)
+        if user : 
+            return user
+        raise HTTPException(status_code=400 , detail="User Not Found")
