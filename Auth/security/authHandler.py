@@ -18,7 +18,7 @@ class AuthHandler(object):
         
         payload = {
             "username" : username,
-            "expires" : str(expire)
+            "exp" : expire
         }
 
         encoded_jwt = jwt.encode(payload , SECRET_KEY ,algorithm=ALGORITHM)
@@ -29,14 +29,10 @@ class AuthHandler(object):
         credential_exception = HTTPException(
             status_code= status.HTTP_401_UNAUTHORIZED,
             detail="Could not validate credentials",
-            headers = {"WWW-Authenticate": "Bearer"}
         )
         try : 
             decoded_token  = jwt.decode(token , SECRET_KEY , algorithms=[ALGORITHM])
-            if decoded_token["expires"]>=datetime.now(timezone.utc) : 
-                return decoded_token 
-            else:
-                 raise credential_exception
+            return decoded_token
         except : 
             raise credential_exception
 
