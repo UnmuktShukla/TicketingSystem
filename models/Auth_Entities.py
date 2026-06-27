@@ -1,10 +1,10 @@
 from pydantic import BaseModel 
-from typing import Optional
+from typing import Optional ,Any
 from datetime import datetime
 
 
 class User(BaseModel):
-    id : Optional[str] = None
+    id : Optional[Any] = None
     username : Optional[str] = None
     role : Optional[str] = None
     created_at : Optional[datetime] = None

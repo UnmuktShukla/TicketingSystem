@@ -32,7 +32,8 @@ def getCurrentUser(
             return User(
                 id = user.id,
                 username=user.username,
-                role = user.role
+                role = user.role,
+                created_at= user.created_at
             )
         except Exception as error:
             raise error
