@@ -2,10 +2,11 @@ from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime
 
+
 class User(BaseModel):
     id : Optional[str] = None
     username : Optional[str] = None
-    role : Optional[int] = None
+    role : Optional[str] = None
     created_at : Optional[datetime] = None
     disabled : Optional[bool] = False
 
@@ -22,3 +23,7 @@ class UserInDB(User):
 class UserInLogin(BaseModel):
     username : Optional[str] = None
     password : Optional[str] = None
+
+class UserInSignup(BaseModel):
+    username : str
+    password : str

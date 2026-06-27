@@ -5,7 +5,8 @@ from models.Auth_Entities import (
     UserInDB,
     UserInLogin,
     Token,
-    TokenData
+    TokenData,
+    UserInSignup
 )
 from Auth.security.authHandler import AuthHandler
 from Auth.security.hashHelper import HashHelper
@@ -17,12 +18,12 @@ class UserService:
     def __init__(self , session : Session):
         self.__userRepository = UserRepository(session= session)
     
-    def signup(self , user_details : UserInDB):
+    def signup(self , user_details : UserInSignup):
         if self.__userRepository.user_exist_by_username(user_details.username):
             raise HTTPException(status_code=400 , detail = "Please Login")
         
-        hashed_password = HashHelper.get_password_hash(plain_pw=user_details.hashed_password)
-        user_details.hashed_password = hashed_password
+        hashed_password = HashHelper.get_password_hash(plain_pw=user_details.password)
+        user_details.password = hashed_password
         return self.__userRepository.create_user(user_data= user_details)
     
     def login(self , login_details : UserInLogin):

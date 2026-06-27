@@ -1,20 +1,21 @@
+import datetime
+from zoneinfo import ZoneInfo
 from .base import BaseRepository
 from models.Auth_Entities import (
     UserInDB,
     User,
-    UserInLogin
+    UserInSignup
 )
 from models.models import Users
+import uuid
 
 class UserRepository(BaseRepository):
-    def create_user(self, user_data : UserInDB):
+    def create_user(self, user_data : UserInSignup):
         newUser = Users(
-            id=user_data.id,
             username=user_data.username,
-            password=user_data.hashed_password,  # map here
-            role=user_data.role,
-            created_at=user_data.created_at,
-            disabled=user_data.disabled,
+            password=user_data.password,  # map here
+            role="Customer",
+            created_at=datetime.datetime.now(ZoneInfo("Asia/Kolkata"))
         )
 
         self.session.add(instance = newUser)
