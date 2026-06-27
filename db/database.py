@@ -2,6 +2,7 @@ from typing import final
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.engine import URL
 from dotenv import load_dotenv
 import os
 
@@ -13,9 +14,17 @@ _db_password = os.getenv('DB_PASSWORD')
 _db_host = os.getenv('HOST')
 _db_port = os.getenv('PORT')
 
-URL_BASE = f"postgresql://{_db_name}:{_db_password}@{_db_host}:{_db_port}"
+def get_db_url() -> URL :
+    return URL.create(
+        drivername="postgresql",
+        username=_db_username,
+        password=_db_password,
+        host=_db_host,
+        port=int(_db_port),
+        database=_db_name,
+    )
 
-engine = create_engine(URL_BASE)
+engine = create_engine(get_db_url())
 
 SessionLocal = sessionmaker(autocommit = False , autoflush= False , bind=engine)
 

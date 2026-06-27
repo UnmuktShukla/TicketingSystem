@@ -1,10 +1,10 @@
 from fastapi import APIRouter , Depends
 from models.Auth_Entities import (
     User,
-    UserInDB,
     UserInLogin,
     Token,
-    TokenData
+    TokenData,
+    UserInSignup
 )
 from db.database import get_db
 from sqlalchemy.orm import Session  
@@ -22,7 +22,7 @@ def login(loginDetails : UserInLogin , session : Session = Depends(get_db)):
         raise error
 
 @authRouter.post("/signup" , status_code=201 , response_model=User)
-def signup(signUpDetails : UserInDB , session : Session = Depends(get_db)):
+def signup(signUpDetails : UserInSignup , session : Session = Depends(get_db)):
     try : 
         return UserService(session=session).signup(user_details=signUpDetails)
     except Exception as error : 

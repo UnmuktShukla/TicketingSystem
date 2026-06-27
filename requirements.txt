@@ -4,6 +4,8 @@ pwdlib
 psycopg2-binary
 uvicorn
 sqlalchemy 
-"python-jose[cryptography]" 
-"passlib[bcrypt]" 
+python-jose[cryptography]
+passlib[bcrypt] 
 python-multipart
+alembic
+sqlalchemyseed

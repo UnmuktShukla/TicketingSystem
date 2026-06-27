@@ -1,6 +1,5 @@
 from fastapi import  Depends, FastAPI 
 from contextlib import asynccontextmanager
-from db.utils.init_db import create_tables 
 from Auth.routes.auth import authRouter
 from db.utils.protectedRoutes import getCurrentUser
 from models.Auth_Entities import User
@@ -8,7 +7,6 @@ from models.Auth_Entities import User
 
 @asynccontextmanager
 async def lifespan(app : FastAPI):
-    create_tables()
     yield
 
 app = FastAPI(lifespan= lifespan)
