@@ -1,6 +1,8 @@
 import datetime
-from gc import disable
+import uuid
 from zoneinfo import ZoneInfo
+
+from sqlalchemy import update
 from .base import BaseRepository
 from models.Auth_Entities import (
     UserInDB,
@@ -59,3 +61,36 @@ class UserRepository(BaseRepository):
             )
         else :
             return None   
+
+    def user_exist_by_id(self, user_id: uuid.UUID):
+        user = self.session.query(Users).filter(Users.id == user_id).first()
+        if user is None:
+            return False
+        return True
+    
+    def get_user_by_id(self , user_id: uuid.UUID):
+        user = self.session.query(Users).filter(Users.id == user_id).first()
+        if user :
+            return UserInDB(
+                id=user.id,
+                username=user.username,
+                role=self.get_role_by_id(user.role),
+                created_at=user.created_at,
+                disabled=user.disabled,
+                hashed_password=user.password,
+            )
+        else :
+            return None
+
+    def update_role(self , user_id : uuid.UUID ,role_id : uuid.uuid4):
+        role = self.session.query(UserRoles).filter(UserRoles.id == role_id).first()
+        stmt = (
+            update(Users)
+            .where(Users.id == user_id)
+            .values(role = role.id)
+        )
+
+        self.session.execute(stmt)
+        self.session.commit()
+
+        

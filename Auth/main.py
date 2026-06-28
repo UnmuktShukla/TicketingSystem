@@ -1,5 +1,6 @@
 from fastapi import  Depends, FastAPI 
 from contextlib import asynccontextmanager
+from Auth.routes.admin import adminRouter
 from Auth.routes.auth import authRouter
 from db.utils.protectedRoutes import getCurrentUser
 from models.Auth_Entities import User
@@ -11,6 +12,7 @@ async def lifespan(app : FastAPI):
 
 app = FastAPI(lifespan= lifespan)
 app.include_router(router=authRouter , tags=["auth"] , prefix="/auth")
+app.include_router(router=adminRouter , tags=["admin"] , prefix = "/admin")
 
 @app.get("/health")
 async def get_index():

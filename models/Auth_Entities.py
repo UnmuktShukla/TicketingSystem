@@ -1,5 +1,5 @@
 from pydantic import BaseModel 
-from typing import Optional ,Any
+from typing import Literal, Optional ,Any 
 from datetime import datetime
 
 
@@ -27,3 +27,6 @@ class UserInLogin(BaseModel):
 class UserInSignup(BaseModel):
     username : str
     password : str
+
+class RoleEscalation(BaseModel):
+    role : Literal['admin' , 'engineer']
