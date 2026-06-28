@@ -1,4 +1,3 @@
-import stat
 from db.repository.userRepo import UserRepository
 from models.Auth_Entities import (
     User,

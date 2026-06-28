@@ -39,3 +39,13 @@ def getCurrentUser(
             raise error
     raise auth_exception
     
+def requireAdmin(
+    user : User = Depends(getCurrentUser)
+):
+    isAdminException = HTTPException(
+        status_code=status.HTTP_403_FORBIDDEN ,
+        detail= "This user is not authorised to perform this operation"
+    )
+    if user.role != 'admin':
+        raise isAdminException
+    return user
