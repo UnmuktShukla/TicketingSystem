@@ -1,6 +1,6 @@
 from datetime import datetime
 import uuid
-from sqlalchemy import Boolean, Column, DateTime , ForeignKey , Integer , String, Uuid
+from sqlalchemy import Boolean, Column, DateTime , ForeignKey , Integer , String, Uuid , false
 from sqlalchemy.orm import Mapped, mapped_column 
 from db.database import Base
 
@@ -21,4 +21,11 @@ class UserRoles(Base):
     id : Mapped[uuid.UUID] = mapped_column(Uuid , primary_key=True , default=uuid.uuid4)
     role : Mapped[str] = mapped_column(String , unique=True)
 
+class RefreshToken(Base):
+    __tablename__ = 'refresh_token'
 
+    id : Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True , default=uuid.uuid4)
+    token : Mapped[str] = mapped_column(String)
+    user_id : Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id"))
+    expires : Mapped[datetime] = mapped_column(DateTime)
+    revoked : Mapped[bool] = mapped_column(Boolean , server_default=false())

@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime,timedelta
 import uuid
 from zoneinfo import ZoneInfo
 
@@ -9,7 +9,7 @@ from models.Auth_Entities import (
     User,
     UserInSignup
 )
-from models.models import Users , UserRoles
+from models.models import Users , UserRoles , RefreshToken
 
 class UserRepository(BaseRepository):
 
@@ -82,7 +82,7 @@ class UserRepository(BaseRepository):
         else :
             return None
 
-    def update_role(self , user_id : uuid.UUID ,role_id : uuid.uuid4):
+    def update_role(self , user_id : uuid.UUID ,role_id : uuid.uuid4) -> None:
         role = self.session.query(UserRoles).filter(UserRoles.id == role_id).first()
         stmt = (
             update(Users)
@@ -93,4 +93,13 @@ class UserRepository(BaseRepository):
         self.session.execute(stmt)
         self.session.commit()
 
+    def create_refresh_token(self, hashed_token: str , user_id: uuid.UUID) -> None:
+        newToken = RefreshToken(
+            token = hashed_token,
+            user_id = user_id,
+            expires = datetime.now(ZoneInfo("Asia/Kolkata")) + timedelta(days=7)
+        )
+        self.session.add(instance = newToken)
+        self.session.commit()
+        self.session.refresh(instance = newToken)
         
