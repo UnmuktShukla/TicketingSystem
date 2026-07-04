@@ -30,3 +30,6 @@ class UserInSignup(BaseModel):
 
 class RoleEscalation(BaseModel):
     role : Literal['admin' , 'engineer']
+
+class RefreshTokenResponse(TokenData):
+    refreshToken : str

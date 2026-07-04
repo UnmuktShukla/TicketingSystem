@@ -1,11 +1,9 @@
+import uuid
 from db.repository.userRepo import UserRepository
 from models.Auth_Entities import (
-    User,
-    UserInDB,
     UserInLogin,
-    Token,
-    TokenData,
-    UserInSignup
+    UserInSignup,
+    RefreshTokenResponse
 )
 from Auth.security.authHandler import AuthHandler
 from Auth.security.hashHelper import HashHelper
@@ -32,9 +30,13 @@ class UserService:
         user = self.__userRepository.get_user_by_username(login_details.username)
         if HashHelper.verify_password(plain_pw=login_details.password , hashed_pw=user.hashed_password):
             token = AuthHandler.sign_jwt(username=user.username)
-            if token : 
-                return TokenData(
+            refresh_token = str(uuid.uuid4())
+            hashed_refresh_token = HashHelper.get_refresh_token_hash(refresh_token)
+            self.__userRepository.create_refresh_token(hashed_refresh_token , user.id)
+            if token and hashed_refresh_token: 
+                return RefreshTokenResponse(
                     access_token= token,
+                    refreshToken= refresh_token
                 )
             raise HTTPException(status_code=500 , detail="Unable to process request")
         raise HTTPException(status_code=400 , detail="Please check your credentials")

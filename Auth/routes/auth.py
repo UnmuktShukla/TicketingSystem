@@ -2,8 +2,7 @@ from fastapi import APIRouter , Depends
 from models.Auth_Entities import (
     User,
     UserInLogin,
-    Token,
-    TokenData,
+    RefreshTokenResponse,
     UserInSignup
 )
 from db.database import get_db
@@ -13,7 +12,7 @@ from typing import Annotated
 
 authRouter = APIRouter()
 
-@authRouter.post("/login" , status_code=200 , response_model=TokenData)
+@authRouter.post("/login" , status_code=200 , response_model=RefreshTokenResponse)
 def login(loginDetails : UserInLogin , session : Session = Depends(get_db)):
     try:
         return UserService(session=session).login(login_details= loginDetails)
