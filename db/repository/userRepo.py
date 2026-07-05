@@ -102,4 +102,20 @@ class UserRepository(BaseRepository):
         self.session.add(instance = newToken)
         self.session.commit()
         self.session.refresh(instance = newToken)
-        
+    
+    def get_refresh_token(self , candidate_hash : str) -> RefreshToken:
+        stored_hash = self.session.query(RefreshToken).filter(RefreshToken.token == candidate_hash).order_by(RefreshToken.expires.desc()).first()
+        if stored_hash is None : 
+            return None
+        return stored_hash
+    
+    def revoke_refresh_token(self, hash_id : str ) -> None:
+        stored_hash = self.session.query(RefreshToken).filter(RefreshToken.id == hash_id).first()
+        if stored_hash : 
+            stmt = (
+                update(RefreshToken)
+                .where(RefreshToken.id == hash_id)
+                .values(revoked = True)
+            )
+            self.session.execute(stmt)
+            self.session.commit()  

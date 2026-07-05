@@ -25,7 +25,7 @@ class RefreshToken(Base):
     __tablename__ = 'refresh_token'
 
     id : Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True , default=uuid.uuid4)
-    token : Mapped[str] = mapped_column(String)
+    token : Mapped[str] = mapped_column(String , nullable=False , unique=True)
     user_id : Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id"))
     expires : Mapped[datetime] = mapped_column(DateTime)
     revoked : Mapped[bool] = mapped_column(Boolean , server_default=false())
